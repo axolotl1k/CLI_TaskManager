@@ -14,6 +14,14 @@ public class Task implements Serializable {
     private LocalDate deadline;
     private TaskStatus status;
 
+    public Task(int id, String name, String description, String deadline, String status) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.deadline = dateParser(deadline);
+        this.status = TaskStatus.fromString(status);
+    }
+
     public Task(String name, String description, String deadline, String status) {
         this.id = TaskManager.getInstance().nextTaskCount();
         this.name = name;

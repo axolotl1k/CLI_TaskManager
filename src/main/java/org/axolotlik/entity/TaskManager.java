@@ -33,6 +33,10 @@ public class TaskManager {
         return instance;
     }
 
+    public int getTaskCount() {
+        return taskCount;
+    }
+
     public int nextTaskCount() {
         taskCount++;
         return taskCount;
@@ -58,6 +62,7 @@ public class TaskManager {
 
     public void save(){
         try {
+            updateFailed();
             FileManager.save(tasks);
         } catch (IOException e) {
             System.out.println(e.getMessage()
@@ -65,7 +70,7 @@ public class TaskManager {
         }
     }
 
-    private void updateFailed(){
+    public void updateFailed(){
         tasks.stream()
                 .filter(task -> task.getDeadline().isBefore(LocalDate.now()))
                 .forEach(task -> task.setStatus("failed"));
